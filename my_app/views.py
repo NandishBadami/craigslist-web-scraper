@@ -22,7 +22,7 @@ def new_search(request):
     search = request.POST.get('search')
     #Search.objects.create(search = search)
     final_url = BASE_CRAIGSLIST_URL.format(quote_plus(search))
-    response = requests.get(final_url, headers=headers)
+    response = requests.get(final_url, headers=headers, proxies={})
     data = response.text
     soup = BeautifulSoup(data, features='html.parser')
     post_listings = soup.find_all('li', {'class': "cl-static-search-result"})
