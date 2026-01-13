@@ -7,6 +7,13 @@ from .models import Search
 # Create your views here.
 
 BASE_CRAIGSLIST_URL = 'https://losangeles.craigslist.org/search/?query={}'
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    )
+}
 
 def home(request):
     return render(request, 'base.html')
@@ -15,7 +22,7 @@ def new_search(request):
     search = request.POST.get('search')
     #Search.objects.create(search = search)
     final_url = BASE_CRAIGSLIST_URL.format(quote_plus(search))
-    response = requests.get(final_url)
+    response = requests.get(final_url, headers=headers)
     data = response.text
     soup = BeautifulSoup(data, features='html.parser')
     post_listings = soup.find_all('li', {'class': "cl-static-search-result"})
