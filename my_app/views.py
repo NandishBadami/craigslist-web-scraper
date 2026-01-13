@@ -6,6 +6,11 @@ from .models import Search
 
 # Create your views here.
 
+import time
+import random
+
+time.sleep(random.uniform(2, 6))
+
 BASE_CRAIGSLIST_URL = 'https://losangeles.craigslist.org/search/?query={}'
 headers = {
     "User-Agent": (
